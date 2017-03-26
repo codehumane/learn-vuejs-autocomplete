@@ -22,6 +22,7 @@
             localStorage.setItem(this.KEY, JSON.stringify({
                 names: [
                     "JOOQ",
+                    "JODA",
                     "JPA",
                     "JDK",
                     "JAVA",
@@ -46,8 +47,13 @@
         },
         methods: {
             onNameTyped: function() {
-                console.log("onNameTyped: " + this.typedName);
-                console.log("names on storage: " + this.names.join(','));
+                var typedName = this.typedName;
+                console.log("onNameTyped: " + typedName);
+                var suggested = _.filter(this.names, function(name) {
+                    return name.startsWith(typedName);
+                });
+
+                console.log("suggested names: " + suggested.join(','));
             }
         }
     });
