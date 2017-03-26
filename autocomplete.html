@@ -8,10 +8,7 @@
 </head>
 <body>
     <div id="autocompleteApp">
-        <div class="input-group">
-            <span class="input-group-addon">AUTOCOMPLETE</span>
-            <input type="text" class="form-control" v-on:keyup="onNameTyped" v-model="typedName" placeholder="TYPE YOUR NAME STARTING 'J'.">
-        </div>
+        <input type="text" class="form-control" v-on:keyup="onNameTyped" v-model="typedName" placeholder="TYPE YOUR NAME STARTING 'J'.">
         <ul class="list-group" id="nameSuggestions">
             <li class="list-group-item" v-for="suggestion in suggestions">
                 {{ suggestion }}
