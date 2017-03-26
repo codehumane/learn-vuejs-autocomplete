@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-    <div class="input-group">
+    <div class="input-group" id="autocomplete-app">
         <span class="input-group-addon">AUTOCOMPLETE</span>
-        <input type="text" class="form-control" placeholder="TYPE YOUR NAME STARTING 'J'.">
+        <input type="text" class="form-control" v-on:keyup="onNameTyped" v-model="typedName" placeholder="TYPE YOUR NAME STARTING 'J'.">
     </div>
 </body>
 <script src="https://unpkg.com/vue"></script>
@@ -30,5 +30,18 @@
             return JSON.parse(localStorage.getItem(this.KEY) || '[]');
         }
     };
+
+    // input app
+    var app = new Vue({
+        el: '#autocomplete-app',
+        data: {
+            typedName: ""
+        },
+        methods: {
+            onNameTyped: function() {
+                console.log("onNameTyped: " + this.typedName);
+            }
+        }
+    });
 </script>
 </html>
