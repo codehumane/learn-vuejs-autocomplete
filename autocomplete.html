@@ -53,6 +53,11 @@
         methods: {
             onNameTyped: function() {
                 var typedName = this.typedName;
+                if (_.isEmpty(typedName)) {
+                    this.suggestions = [];
+                    return;
+                }
+                
                 this.suggestions = _.filter(this.names, function(name) {
                     return name.startsWith(typedName);
                 });
