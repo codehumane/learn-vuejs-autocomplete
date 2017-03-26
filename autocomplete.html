@@ -38,11 +38,16 @@
     var app = new Vue({
         el: '#autocomplete-app',
         data: {
-            typedName: ""
+            names: storage.fetch()['names'],
+            typedName: "",
+        },
+        beforeCreate: function() {
+            storage.create();
         },
         methods: {
             onNameTyped: function() {
                 console.log("onNameTyped: " + this.typedName);
+                console.log("names on storage: " + this.names.join(','));
             }
         }
     });
