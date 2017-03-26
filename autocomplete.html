@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-    <label for="basic-url">TYPE YOUR NAME</label>
+    <label for="basic-url">TYPE YOUR NAME STARTING 'J'.</label>
     <div class="input-group">
         <span class="input-group-addon">AUTOCOMPLETE</span>
         <input type="text" class="form-control">
@@ -15,6 +15,21 @@
 </body>
 <script src="https://unpkg.com/vue"></script>
 <script>
-    console.log('TODO!');
+    // name storage
+    var storage = {
+        KEY: 'LEARN-VUEJS-AUTOCOMPLETE',
+        create: function() {
+            localStorage.setItem(this.KEY, [
+                "JOOQ",
+                "JPA",
+                "JDK",
+                "JAVA",
+                "JBOSS"
+            ]);
+        },
+        fetch: function () {
+            return JSON.parse(localStorage.getItem(this.KEY) || '[]');
+        }
+    };
 </script>
 </html>
