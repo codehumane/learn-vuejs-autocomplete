@@ -7,9 +7,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-    <div class="input-group" id="autocomplete-app">
-        <span class="input-group-addon">AUTOCOMPLETE</span>
-        <input type="text" class="form-control" v-on:keyup="onNameTyped" v-model="typedName" placeholder="TYPE YOUR NAME STARTING 'J'.">
+    <div id="autocompleteApp">
+        <div class="input-group">
+            <span class="input-group-addon">AUTOCOMPLETE</span>
+            <input type="text" class="form-control" v-on:keyup="onNameTyped" v-model="typedName" placeholder="TYPE YOUR NAME STARTING 'J'.">
+        </div>
+        <ul class="list-group" id="nameSuggestions" style="display:none">
+            <li class="list-group-item">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Morbi leo risus</li>
+            <li class="list-group-item">Porta ac consectetur ac</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
     </div>
 </body>
 <script src="https://unpkg.com/vue"></script>
@@ -37,7 +46,7 @@
 
     // input app
     var app = new Vue({
-        el: '#autocomplete-app',
+        el: '#autocompleteApp',
         data: {
             names: storage.fetch()['names'],
             typedName: "",
