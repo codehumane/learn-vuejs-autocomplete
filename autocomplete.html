@@ -8,11 +8,17 @@
 </head>
 <body>
     <div id="autocompleteApp">
-        <input type="text" class="form-control" v-on:keyup="onNameTyped" v-model="typedName" placeholder="TYPE YOUR NAME STARTING 'J'.">
+        <input type="text" class="form-control" placeholder="TYPE YOUR NAME STARTING 'J'."
+            v-on:keyup="onNameTyped"
+            v-on:keyup.up="onSuggestionMovedUp" 
+            v-on:keyup.down="onSuggestionMovedDown"
+            v-on:keyup.enter="onSuggestionEntered"
+            v-model="typedName"
+        />
         <ul class="list-group" id="nameSuggestions">
-            <li class="list-group-item" v-for="suggestion in suggestions">
-                {{ suggestion }}
-            </li>
+            <template v-for="suggestion in suggestions">
+                <li class="list-group-item" v-bind:class="{ active : suggestion.selected }">{{ suggestion.value }}</li>
+            </template>
         </ul>
     </div>
 </body>
@@ -51,16 +57,46 @@
             storage.create();
         },
         methods: {
-            onNameTyped: function() {
+            onNameTyped: function(e) {
+                if (e.keyCode == 38 || e.keyCode == 40) return;
+
                 var typedName = this.typedName;
                 if (_.isEmpty(typedName)) {
                     this.suggestions = [];
                     return;
                 }
-                
-                this.suggestions = _.filter(this.names, function(name) {
-                    return name.startsWith(typedName);
+
+                this.suggestions = _.filter(this.names, function(n) {
+                    return n.startsWith(typedName);
+                }).map(function(n, idx) {
+                    return {
+                        value: n,
+                        index: idx,
+                        selected: false
+                    }
                 });
+            },
+            onSuggestionMovedUp: function() {
+                // TODO
+            },
+            onSuggestionMovedDown: function() {
+                if (_.isEmpty(this.suggestions)) return;
+                var selected = _.find(this.suggestions, function(s) {
+                    return s.selected;
+                });
+
+                var nextIndex = 0;
+                if (!_.isEmpty(selected)) {
+                    this.suggestions[selected.index].selected = false;
+                    if (selected.index != this.suggestions.length - 1) {
+                        nextIndex = selected.index + 1;
+                    }
+                }
+
+                this.suggestions[nextIndex].selected = true;
+            },
+            onSuggestionEntered: function() {
+                // TODO
             }
         }
     });
