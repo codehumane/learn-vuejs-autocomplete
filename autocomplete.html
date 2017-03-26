@@ -12,12 +12,10 @@
             <span class="input-group-addon">AUTOCOMPLETE</span>
             <input type="text" class="form-control" v-on:keyup="onNameTyped" v-model="typedName" placeholder="TYPE YOUR NAME STARTING 'J'.">
         </div>
-        <ul class="list-group" id="nameSuggestions" style="display:none">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
+        <ul class="list-group" id="nameSuggestions">
+            <li class="list-group-item" v-for="suggestion in suggestions">
+                {{ suggestion }}
+            </li>
         </ul>
     </div>
 </body>
@@ -50,6 +48,7 @@
         data: {
             names: storage.fetch()['names'],
             typedName: "",
+            suggestions: []
         },
         beforeCreate: function() {
             storage.create();
@@ -57,12 +56,9 @@
         methods: {
             onNameTyped: function() {
                 var typedName = this.typedName;
-                console.log("onNameTyped: " + typedName);
-                var suggested = _.filter(this.names, function(name) {
+                this.suggestions = _.filter(this.names, function(name) {
                     return name.startsWith(typedName);
                 });
-
-                console.log("suggested names: " + suggested.join(','));
             }
         }
     });
