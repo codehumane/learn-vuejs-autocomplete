@@ -18,13 +18,15 @@
     var storage = {
         KEY: 'LEARN-VUEJS-AUTOCOMPLETE',
         create: function() {
-            localStorage.setItem(this.KEY, [
-                "JOOQ",
-                "JPA",
-                "JDK",
-                "JAVA",
-                "JBOSS"
-            ]);
+            localStorage.setItem(this.KEY, JSON.stringify({
+                names: [
+                    "JOOQ",
+                    "JPA",
+                    "JDK",
+                    "JAVA",
+                    "JBOSS"
+                ]
+            }));
         },
         fetch: function () {
             return JSON.parse(localStorage.getItem(this.KEY) || '[]');
